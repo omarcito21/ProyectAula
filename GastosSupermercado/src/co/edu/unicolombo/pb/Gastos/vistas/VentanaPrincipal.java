@@ -5,6 +5,10 @@
 package co.edu.unicolombo.pb.Gastos.vistas;
 
 import co.edu.unicolombo.pb.Gastos.Cliente;
+import co.edu.unicolombo.pb.Gastos.Producto;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import java.awt.Desktop;
+import java.net.URI;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,9 +54,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemBuscarProductoNombre = new javax.swing.JMenuItem();
         itemBuscarProductoValor = new javax.swing.JMenuItem();
         itemBuscarProductoFecha = new javax.swing.JMenuItem();
-        itemBuscarProductoDescripcion = new javax.swing.JMenuItem();
+        itemBuscarProductoTodo = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem17 = new javax.swing.JMenuItem();
+        ItemAyuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de Productos");
@@ -99,11 +103,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemEditarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Editar24px.png"))); // NOI18N
         itemEditarCliente.setText("Editar datos..");
+        itemEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEditarClienteActionPerformed(evt);
+            }
+        });
         MenuCliente.add(itemEditarCliente);
 
         itemEliminarCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemEliminarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Eliminar24px.png"))); // NOI18N
         itemEliminarCliente.setText("Eliminar cliente..");
+        itemEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarClienteActionPerformed(evt);
+            }
+        });
         MenuCliente.add(itemEliminarCliente);
 
         subMenuReporteCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Reporte48px.png"))); // NOI18N
@@ -143,16 +157,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemAgregarProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/AgregarProducto48px.png"))); // NOI18N
         itemAgregarProducto.setText("Agregar productos..");
+        itemAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAgregarProductoActionPerformed(evt);
+            }
+        });
         MenuProducto.add(itemAgregarProducto);
 
         itemConsultarProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemConsultarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Buscar24px.png"))); // NOI18N
         itemConsultarProducto.setText("Consultar sus productos..");
+        itemConsultarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultarProductoActionPerformed(evt);
+            }
+        });
         MenuProducto.add(itemConsultarProducto);
 
         itemEditarProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemEditarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Editar24px.png"))); // NOI18N
         itemEditarProducto.setText("Editar sus productos ..");
+        itemEditarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEditarProductoActionPerformed(evt);
+            }
+        });
         MenuProducto.add(itemEditarProducto);
 
         itemEliminarProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -160,6 +189,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemEliminarProducto.setText("Eliminar sus productos..");
         itemEliminarProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         itemEliminarProducto.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        itemEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarProductoActionPerformed(evt);
+            }
+        });
         MenuProducto.add(itemEliminarProducto);
 
         subMenuReporteProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Reporte48px.png"))); // NOI18N
@@ -183,17 +217,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         itemBuscarProductoFecha.setIconTextGap(1);
         subMenuReporteProducto.add(itemBuscarProductoFecha);
 
-        itemBuscarProductoDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemBuscarProductoDescripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Descripcion24px.png"))); // NOI18N
-        itemBuscarProductoDescripcion.setText("Descripcion..");
-        itemBuscarProductoDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        itemBuscarProductoDescripcion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        itemBuscarProductoDescripcion.addActionListener(new java.awt.event.ActionListener() {
+        itemBuscarProductoTodo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemBuscarProductoTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/Gastos/vistas/iconos/Descripcion24px.png"))); // NOI18N
+        itemBuscarProductoTodo.setText("Descripcion..");
+        itemBuscarProductoTodo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        itemBuscarProductoTodo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        itemBuscarProductoTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemBuscarProductoDescripcionActionPerformed(evt);
+                itemBuscarProductoTodoActionPerformed(evt);
             }
         });
-        subMenuReporteProducto.add(itemBuscarProductoDescripcion);
+        subMenuReporteProducto.add(itemBuscarProductoTodo);
 
         MenuProducto.add(subMenuReporteProducto);
 
@@ -203,14 +237,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Ayuda");
         jMenu3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        jMenuItem17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem17.setText("Acerca de..");
-        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+        ItemAyuda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ItemAyuda.setText("Acerca de..");
+        ItemAyuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem17ActionPerformed(evt);
+                ItemAyudaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem17);
+        jMenu3.add(ItemAyuda);
 
         BarraMenu.add(jMenu3);
 
@@ -231,30 +265,68 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemIniciarSesionClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIniciarSesionClienteActionPerformed
-        // TODO add your handling code here:
+         VentanaClientes1 ventana = new VentanaClientes1(this,true);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+        
     }//GEN-LAST:event_itemIniciarSesionClienteActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
+    private void ItemAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemAyudaActionPerformed
+    mostrarMensajeContacto();
+    abrirEnlaceFacebook();
+    abrirEnlaceInstagram();
+}
+
+private void mostrarMensajeContacto() {
+    String mensaje = "Puedes contactarnos en nuestro perfil de Instagram y seguirnos en Facebook para obtener ayuda.";
+    JOptionPane.showMessageDialog(this, mensaje, "Contacto", JOptionPane.INFORMATION_MESSAGE);
+}
+
+private void abrirEnlaceFacebook() {
+    try {
+        Desktop.getDesktop().browse(new URI("https://www.facebook.com/")); // Reemplaza con tu URL de Facebook
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Manejo de errores (puedes mostrar un mensaje de error)
+    }
+}
+
+private void abrirEnlaceInstagram() {
+    try {
+        Desktop.getDesktop().browse(new URI("https://www.instagram.com/")); // Reemplaza con tu URL de Instagram
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Manejo de errores (puedes mostrar un mensaje de error)
+    }
+    }//GEN-LAST:event_ItemAyudaActionPerformed
 
     private void itemAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarClienteActionPerformed
-        VentanaClientes ventana = new VentanaClientes(this,true);
+        VentanaClientes1 ventana = new VentanaClientes1(this,true);
         ventana.setLocationRelativeTo(this);
         ventana.setVisible(true);
     }//GEN-LAST:event_itemAgregarClienteActionPerformed
 
-    private void itemBuscarProductoDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarProductoDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemBuscarProductoDescripcionActionPerformed
+    private void itemBuscarProductoTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarProductoTodoActionPerformed
+      if (Producto.ProductosBD == null || Producto.ProductosBD.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "No existen productos en el sistema",
+            "Resultado negativo", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+VentanaReporteProducto ventana = new VentanaReporteProducto(this, true);
+ventana.setLocationRelativeTo(this);
+ventana.setVisible(true);
+    }//GEN-LAST:event_itemBuscarProductoTodoActionPerformed
 
     private void MenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuClienteActionPerformed
-        // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_MenuClienteActionPerformed
 
     private void itemConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultarClienteActionPerformed
       itemAgregarClienteActionPerformed (evt);
     }//GEN-LAST:event_itemConsultarClienteActionPerformed
+ 
 
     private void itemTodosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTodosClientesActionPerformed
               if(Cliente.ClientesBD == null || Cliente.ClientesBD.isEmpty()){
@@ -268,6 +340,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Ventana.setLocationRelativeTo(this);
         Ventana.setVisible(true);
     }//GEN-LAST:event_itemTodosClientesActionPerformed
+
+    private void itemAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarProductoActionPerformed
+       VentanaProducto1 v = new VentanaProducto1();
+       v.setLocationRelativeTo(null);
+       v.setVisible(true);
+    }//GEN-LAST:event_itemAgregarProductoActionPerformed
+
+    private void itemConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultarProductoActionPerformed
+VentanaProducto1 v = new VentanaProducto1();
+       v.setLocationRelativeTo(null);
+       v.setVisible(true);
+       
+    }//GEN-LAST:event_itemConsultarProductoActionPerformed
+
+    private void itemEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarProductoActionPerformed
+         VentanaProducto1 v = new VentanaProducto1();
+       v.setLocationRelativeTo(null);
+       v.setVisible(true);
+    }//GEN-LAST:event_itemEditarProductoActionPerformed
+
+    private void itemEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarProductoActionPerformed
+      VentanaProducto1 v = new VentanaProducto1();
+       v.setLocationRelativeTo(null);
+       v.setVisible(true);
+    }//GEN-LAST:event_itemEliminarProductoActionPerformed
+
+    private void itemEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarClienteActionPerformed
+       VentanaClientes1 ventana = new VentanaClientes1(this,true);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_itemEditarClienteActionPerformed
+
+    private void itemEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarClienteActionPerformed
+    VentanaClientes1 ventana = new VentanaClientes1(this,true);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_itemEliminarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,6 +415,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarraMenu;
+    private javax.swing.JMenuItem ItemAyuda;
     private javax.swing.JMenu MenuCliente;
     private javax.swing.JMenu MenuProducto;
     private javax.swing.JMenuItem itemAgregarCliente;
@@ -313,9 +423,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemBuscarClienteCorreo;
     private javax.swing.JMenuItem itemBuscarClienteNombre;
     private javax.swing.JMenuItem itemBuscarClienteTelefono;
-    private javax.swing.JMenuItem itemBuscarProductoDescripcion;
     private javax.swing.JMenuItem itemBuscarProductoFecha;
     private javax.swing.JMenuItem itemBuscarProductoNombre;
+    private javax.swing.JMenuItem itemBuscarProductoTodo;
     private javax.swing.JMenuItem itemBuscarProductoValor;
     private javax.swing.JMenuItem itemConsultarCliente;
     private javax.swing.JMenuItem itemConsultarProducto;
@@ -326,7 +436,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemIniciarSesionCliente;
     private javax.swing.JMenuItem itemTodosClientes;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenu subMenuReporteCliente;
     private javax.swing.JMenu subMenuReporteProducto;
     // End of variables declaration//GEN-END:variables

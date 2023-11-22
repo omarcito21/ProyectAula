@@ -5,7 +5,6 @@
 package co.edu.unicolombo.pb.Gastos.vistas;
 import co.edu.unicolombo.pb.Gastos.Producto;
 import co.edu.unicolombo.pb.persistencia.AlmacenamientoP;
-
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -13,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author Usuario
  */
-public class VentanaProducto extends javax.swing.JFrame {
+public class VentanaProducto1 extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaProducto
      */
-    public VentanaProducto() {
+    public VentanaProducto1() {
         initComponents();
     }
 
@@ -199,50 +198,117 @@ public class VentanaProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonGuardarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonGuardarPActionPerformed
-        String Codigo = txtCodigo.getText();
-    String nameP = txtName.getText();
-    String pre = txtPrecio.getText();
-    double precio = Double.parseDouble(pre);
-    if( Producto.ProductosBD.containsKey(Codigo)){
-        JOptionPane.showMessageDialog(this, "El producto con codigo "+Codigo+" Ya existe");
-        return;
-    } else {
-    }
-    Producto prod = new Producto();
-    prod.id=Codigo;
-    prod.nombre=nameP;
-    prod.valor=precio;
-    
-    Producto.ProductosBD.put(Codigo, prod);
-    
-    
-    int total = Producto.ProductosBD.size();
-    
-    
+       String codigo = txtCodigo.getText();
+    String nombre = txtName.getText();
+    String precioText = txtPrecio.getText();
+
+    boolean isNumber = true;
+    double precio = 0.0;
+
+    if (!precioText.isEmpty()) {
         try {
-            AlmacenamientoP.guardar(Producto.ProductosBD);
-            JOptionPane.showMessageDialog(this , "Producto guardado con exito\n total: "+total);
-            LimpiarCampos();
-        } catch (IOException error) {
-          JOptionPane.showMessageDialog(this, error.getMessage());
+            precio = Double.parseDouble(precioText);
+        } catch (NumberFormatException e) {
+            isNumber = false;
         }
+    } else {
+        isNumber = false;
+    }
+
+    if (!isNumber) {
+        JOptionPane.showMessageDialog(this, "Error: ingresa un número válido para el precio");
+    } else {
+        if (Producto.ProductosBD.containsKey(codigo)) {
+            JOptionPane.showMessageDialog(this, "El producto con código: " + codigo + " ya está registrado");
+        } else {
+            Producto prod = new Producto();
+            prod.id = codigo;
+            prod.nombre = nombre;
+            prod.valor = precio;
+
+            Producto.ProductosBD.put(codigo, prod);
+
+            int total = Producto.ProductosBD.size();
+
+            try {
+                AlmacenamientoP.guardar(Producto.ProductosBD);
+                JOptionPane.showMessageDialog(this, "Producto registrado con éxito!!\nTotal: " + total);
+                LimpiarCampos();
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+            }
+        }
+    }
     }//GEN-LAST:event_ButtonGuardarPActionPerformed
 
     private void ButtonBuscarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarPActionPerformed
-         
+         String codigoBuscar = txtCodigo.getText(); // Obtener el código a buscar desde el campo de texto
+    
+    if (Producto.ProductosBD.containsKey(codigoBuscar)) {
+        Producto productoEncontrado = Producto.ProductosBD.get(codigoBuscar);
+        // Mostrar información del producto encontrado en los campos correspondientes (por ejemplo, txtName y txtPrecio)
+        txtName.setText(productoEncontrado.nombre);
+        txtPrecio.setText(String.valueOf(productoEncontrado.valor));
+        JOptionPane.showMessageDialog(this, "Producto encontrado:\nCódigo: " + productoEncontrado.id + "\nNombre: " + productoEncontrado.nombre + "\nPrecio: " + productoEncontrado.valor);
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró ningún producto con el código: " + codigoBuscar);
+    }
 
     }//GEN-LAST:event_ButtonBuscarPActionPerformed
 
     private void ButtonEditarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditarPActionPerformed
+ String codigo = txtCodigo.getText();
+String nombre = txtName.getText();
+String precioTexto = txtPrecio.getText();
+
+if (Producto.ProductosBD.containsKey(codigo)) {
+    Producto productoExistente = Producto.ProductosBD.get(codigo);
+    productoExistente.nombre = nombre;
+    productoExistente.valor = Double.parseDouble(precioTexto);
+
+    Producto.ProductosBD.put(codigo, productoExistente);
+
+    try {
+        AlmacenamientoP.guardar(Producto.ProductosBD);
+        JOptionPane.showMessageDialog(this, "Producto editado con éxito");
+        LimpiarCampos();
+    } catch (IOException error) {
+        JOptionPane.showMessageDialog(this, "Error al editar el producto: " + error.getMessage());
+    }
+} else {
+    JOptionPane.showMessageDialog(this, "El producto con código " + codigo + " no existe. No se puede editar.");
+}
 
     }//GEN-LAST:event_ButtonEditarPActionPerformed
 
     private void ButtonEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEliminarPActionPerformed
+ String codigo = txtCodigo.getText();
+
+    try {
+        if (Producto.ProductosBD.containsKey(codigo)) {
+            Producto.ProductosBD.remove(codigo);
+
+            int total = Producto.ProductosBD.size();
+
+            AlmacenamientoP.guardar(Producto.ProductosBD);
+            JOptionPane.showMessageDialog(this, "Producto eliminado con éxito\nTotal: " + total);
+            LimpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Este producto con codigo " + codigo + " no existe. No se puede eliminar.");
+        }
+    } catch (IOException error) {
+        JOptionPane.showMessageDialog(this, "Error al guardar los cambios tras la eliminación del producto: " + error.getMessage());
+    }
 
     }//GEN-LAST:event_ButtonEliminarPActionPerformed
 
     private void ButtonCancelarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarPActionPerformed
-               
+               int opcion = JOptionPane.showConfirmDialog(this, " Desea cerrar el formulario? ",
+                "ALERTA - CONFIRMAR ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
+
     }//GEN-LAST:event_ButtonCancelarPActionPerformed
 public void LimpiarCampos(){
         txtCodigo.setText("");
@@ -266,20 +332,21 @@ public void LimpiarCampos(){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaProducto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaProducto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaProducto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaProducto1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaProducto().setVisible(true);
+                new VentanaProducto1().setVisible(true);
             }
         });
     }

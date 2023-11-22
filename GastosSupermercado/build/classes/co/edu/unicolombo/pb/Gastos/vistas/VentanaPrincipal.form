@@ -70,6 +70,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar datos.."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEditarClienteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemEliminarCliente">
               <Properties>
@@ -81,6 +84,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar cliente.."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEliminarClienteActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="subMenuReporteCliente">
               <Properties>
@@ -152,6 +158,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar productos.."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemAgregarProductoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemConsultarProducto">
               <Properties>
@@ -163,6 +172,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar sus productos.."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemConsultarProductoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemEditarProducto">
               <Properties>
@@ -174,6 +186,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar sus productos .."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEditarProductoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemEliminarProducto">
               <Properties>
@@ -187,6 +202,9 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEliminarProductoActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="subMenuReporteProducto">
               <Properties>
@@ -232,7 +250,7 @@
                     <Property name="iconTextGap" type="int" value="1"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemBuscarProductoDescripcion">
+                <MenuItem class="javax.swing.JMenuItem" name="itemBuscarProductoTodo">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="0"/>
@@ -245,7 +263,7 @@
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemBuscarProductoDescripcionActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemBuscarProductoTodoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -263,7 +281,7 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemAyuda">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
@@ -271,7 +289,7 @@
                 <Property name="text" type="java.lang.String" value="Acerca de.."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem17ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItemAyudaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

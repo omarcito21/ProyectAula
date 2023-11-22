@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  *
  * @author PC
  */
-public class VentanaClientes extends javax.swing.JDialog {
+public class VentanaClientes1 extends javax.swing.JDialog {
 
     /**
      * Creates new form VentanaClientes
      */
-    public VentanaClientes(java.awt.Frame parent, boolean modal) {
+    public VentanaClientes1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -246,10 +246,12 @@ public class VentanaClientes extends javax.swing.JDialog {
         c.apellido = apellido;
         c.celular = celular;
         Cliente.ClientesBD.put(cedula, c);
+        
+        int total = Cliente.ClientesBD.size();
 
         try {
             Almacenamiento.guardar(Cliente.ClientesBD);
-            JOptionPane.showMessageDialog(this, "Cliente registrado con exito!!");
+            JOptionPane.showMessageDialog(this, "Cliente registrado con exito!!\n total: "+ total);
             LimpiarCampos();
         } catch (IOException error) {
             JOptionPane.showMessageDialog(this, error.getMessage());
@@ -262,8 +264,8 @@ public class VentanaClientes extends javax.swing.JDialog {
         CampoName.setText("");
         campoApellido.setText("");
         CampoCel.setText("");
-        ButtonEditar1.setEnabled(false);
-        ButtonEliminar.setEnabled(false);
+        ButtonEditar1.setEnabled(true);
+        ButtonEliminar.setEnabled(true);
     }
 
     private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
@@ -288,46 +290,48 @@ public class VentanaClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_ButtonBuscarActionPerformed
 
     private void ButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEliminarActionPerformed
+String cedula = CampoNrodocumento.getText();
+
+    if (Cliente.ClientesBD.containsKey(cedula)) {
+        Cliente.ClientesBD.remove(cedula);
+
+        try {
+            Almacenamiento.guardar(Cliente.ClientesBD);
+            JOptionPane.showMessageDialog(this, "Cliente eliminado con éxito");
+            LimpiarCampos();
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar el cliente: " + error.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "El cliente con cedula " + cedula + " no existe. No se puede eliminar.");
+    }
 
     }//GEN-LAST:event_ButtonEliminarActionPerformed
 
     private void ButtonEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditar1ActionPerformed
-        if (CampoNrodocumento.getText() == null || CampoNrodocumento.getText().isEmpty()) {
-            String msj = " Busca primero un cliente ";
-            JOptionPane.showMessageDialog(this, msj);
-            LimpiarCampos();
-            return;
+          String cedula = CampoNrodocumento.getText();
+    String nombre = CampoName.getText();
+    String apellido = campoApellido.getText();
+    String celular = CampoCel.getText();
 
-        }
-        if (CampoNrodocumento.getText().equals(Cliente.ClientesBD) != true) {
-            String msj = " La cedula no coincide con la cedula del Cliente consultado ";
-            JOptionPane.showMessageDialog(this, msj);
-            LimpiarCampos();
-            return;
-
-        }
-        Cliente c = Cliente.ClientesBD.get(CampoNrodocumento.getText());
-        String cedula = CampoNrodocumento.getText();
-
-        String nombre = CampoName.getText();
-        String correo = campoApellido.getText();
-        String Celular = CampoCel.getText();
-
+    if (Cliente.ClientesBD.containsKey(cedula)) {
+        Cliente c = Cliente.ClientesBD.get(cedula);
         c.nombre = nombre;
-        c.celular = Celular;
-        Cliente.ClientesBD.put(c.nroDocumento, c);
-        String msj = " Cliente modificado con exito ";
-        JOptionPane.showMessageDialog(this, msj);
-        LimpiarCampos();
+        c.apellido = apellido;
+        c.celular = celular;
+        Cliente.ClientesBD.put(cedula, c);
+
+        try {
+            Almacenamiento.guardar(Cliente.ClientesBD);
+            JOptionPane.showMessageDialog(this, "Cliente editado con éxito");
+            LimpiarCampos();
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(this, "Error al editar el cliente: " + error.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "El cliente con cedula " + cedula + " no existe. No se puede editar.");
     }
-        
-        public void LimpiarCampos1(){
-         CampoNrodocumento.setText("");
-        CampoName.setText("");
-        campoApellido.setText("");
-        CampoCel.setText("");
-        ButtonEditar1.setEnabled(false);
-        ButtonEliminar.setEnabled(false);
+
     }//GEN-LAST:event_ButtonEditar1ActionPerformed
 
     private void ButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelarActionPerformed
@@ -335,13 +339,13 @@ public class VentanaClientes extends javax.swing.JDialog {
                 "ALERTA - CONFIRMAR ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
             this.dispose();
-        }
+        
     }//GEN-LAST:event_ButtonCancelarActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+      public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -355,20 +359,21 @@ public class VentanaClientes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VentanaClientes dialog = new VentanaClientes(new javax.swing.JFrame(), true);
+                VentanaClientes1 dialog = new VentanaClientes1(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -378,7 +383,8 @@ public class VentanaClientes extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
-    }
+      }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonBuscar;

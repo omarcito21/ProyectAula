@@ -16,6 +16,8 @@ public class Producto {
     public String nombre;
     public double valor;
       public static HashMap<String, Producto> ProductosBD = new HashMap<>();
+
+    
     
    
  
